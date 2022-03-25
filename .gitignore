@@ -2,4 +2,4 @@
 data
 results
 *.pt
-
+tests/pylint

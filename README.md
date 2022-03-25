@@ -1,1 +1,1 @@
-# semantic dimensionality
+# Visual semantic

@@ -1,0 +1,4 @@
+/home/chan21/projects/visualsemantic/src/neural_transfer.py:190: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  self.mean = torch.tensor(mean).view(-1, 1, 1)
+/home/chan21/projects/visualsemantic/src/neural_transfer.py:191: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  self.std = torch.tensor(std).view(-1, 1, 1)

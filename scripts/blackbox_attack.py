@@ -22,7 +22,7 @@ from brainio.fetch import get_stimulus_set
 from model_tools.brain_transformation.neural import LayerMappedModel
 from bonner.models.alexnet_imagenet import alexnet_imagenet
 from bonner.brainscore.benchmarks.bonner2021_object2vec import load_assembly, extract_features
-
+import brainscore.metrics.xarray_utils
 
 if __name__ == "__main__":
     parser = ArgumentParser()
@@ -54,6 +54,8 @@ if __name__ == "__main__":
             "rois": rois,
         }
     ) for subject in range(4)], dim="neuroid")
+
+    print(neural_assembly)
 
     for roi in rois:
         print(roi)

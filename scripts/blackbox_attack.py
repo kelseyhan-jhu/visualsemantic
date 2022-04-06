@@ -45,6 +45,7 @@ if __name__ == "__main__":
     betas = {roi: [] for roi in rois}
 
     for roi in rois:
+        print(roi)
         neural_assembly = load_assembly(
             subject,
             average_reps=False,

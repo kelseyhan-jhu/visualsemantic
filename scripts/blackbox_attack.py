@@ -13,6 +13,7 @@ from argparse import ArgumentParser
 import h5py
 import numpy as np
 import seaborn as sns
+import xarray as xr
 import matplotlib.pyplot as plt
 from src.utils import listdir
 
@@ -46,7 +47,7 @@ if __name__ == "__main__":
 
     for roi in rois:
         print(roi)
-        neural_assembly = load_assembly(
+        neural_assembly = xr.concat([load_assembly(
             subject,
             average_reps=False,
             z_score=True,
@@ -57,7 +58,7 @@ if __name__ == "__main__":
 
                 )
             }
-        )
+        ) for subject in range(4)], dim="neuroid")
         regression = linear_regression(
             backend="sklearn",
             #torch_kwargs={"device": "cpu"},

@@ -58,8 +58,8 @@ if __name__ == "__main__":
             }
         )
         regression = linear_regression(
-            backend="pytorch",
-            torch_kwargs={"device": "cpu"},
+            backend="sklearn",
+            #torch_kwargs={"device": "cpu"},
         )
 
         regression.fit(model_assembly, neural_assembly)
@@ -67,7 +67,7 @@ if __name__ == "__main__":
         # I'll change it to follow the sklearn API later to be more consistent
         betas[roi] = regression._regression.betas
 
-    print(betas)
+
     with open('beta.pkl', 'wb') as file:
         pickle.dump(betas, file)
 

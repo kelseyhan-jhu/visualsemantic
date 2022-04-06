@@ -65,8 +65,7 @@ if __name__ == "__main__":
         regression.fit(model_assembly, neural_assembly)
         # if using the Pytorch backend I wrote, the betas are currently stored in the `betas` attribute
         # I'll change it to follow the sklearn API later to be more consistent
-        betas[roi] = regression._regression.coef_ # betas
-        print(betas)
+        betas[roi] = np.transpose(regression._regression.coef_) # betas
 
     with open('beta.pkl', 'wb') as file:
         pickle.dump(betas, file)

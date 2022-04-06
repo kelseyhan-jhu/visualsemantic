@@ -45,20 +45,19 @@ if __name__ == "__main__":
     # extract betas
     betas = {roi: [] for roi in rois}
 
+    neural_assembly = xr.concat([load_assembly(
+        subject,
+        average_reps=False,
+        z_score=True,
+        check_integrity=False,
+        kwargs_filter={
+            "rois": rois,
+        }
+    ) for subject in range(4)], dim="neuroid")
+
     for roi in rois:
         print(roi)
-        neural_assembly = xr.concat([load_assembly(
-            subject,
-            average_reps=False,
-            z_score=True,
-            check_integrity=False,
-            kwargs_filter={
-                "rois": (
-                    roi,
-
-                )
-            }
-        ) for subject in range(4)], dim="neuroid")
+        x = neural_assembly.isel({"neuroid": neural_assembly[f"roi_{roi}"]})
         regression = linear_regression(
             backend="sklearn",
             #torch_kwargs={"device": "cpu"},

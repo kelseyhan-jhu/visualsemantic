@@ -117,20 +117,20 @@ if __name__ == "__main__":
 
     condition = 'face'
     face_activations = alexnet_imagenet()(
-        [ci for ci in condition_imgs[condition]], layers=layers, stimuli_identifier="best_face_." + " ".join(layers)
+        [ci for ci in condition_imgs[condition]], layers=layers, stimuli_identifier="baseline_face." + " ".join(layers)
     )
     condition = 'place'
     scene_activations = alexnet_imagenet()(
-        [ci for ci in condition_imgs[condition]], layers=layers, stimuli_identifier="best_scene_." + " ".join(layers)
+        [ci for ci in condition_imgs[condition]], layers=layers, stimuli_identifier="baseline_scene." + " ".join(layers)
     )
     condition = 'body'
     body_activations = alexnet_imagenet()(
-        [ci for ci in condition_imgs[condition]], layers=layers, stimuli_identifier="best_body_." + " ".join(layers)
+        [ci for ci in condition_imgs[condition]], layers=layers, stimuli_identifier="baseline_body." + " ".join(layers)
     )
 
     condition = 'object'
     object_activations = alexnet_imagenet()(
-        [ci for ci in condition_imgs[condition]], layers=layers, stimuli_identifier="best_object_." + " ".join(layers)
+        [ci for ci in condition_imgs[condition]], layers=layers, stimuli_identifier="baseline_object_." + " ".join(layers)
     )
 
     cond_activations = {'face': face_activations.values,

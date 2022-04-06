@@ -45,27 +45,34 @@ if __name__ == "__main__":
     # extract betas
     betas = {roi: [] for roi in rois}
 
-    neural_assembly = xr.concat([load_assembly(
-        subject,
-        average_reps=False,
-        z_score=True,
-        check_integrity=False,
-        kwargs_filter={
-            "rois": rois,
-        }
-    ) for subject in range(4)], dim="neuroid")
+    neural_assembly = xr.concat(
+        [
+            load_assembly(
+                subject,
+                average_reps=False,
+                z_score=True,
+                check_integrity=False,
+                kwargs_filter={
+                    "rois": rois,
+                }
+            )
+            .drop_vars("cv_set")
+            for subject in range(4)
+        ],
+        dim="neuroid"
+    )
 
-    print(neural_assembly)
 
     for roi in rois:
         print(roi)
-        x = neural_assembly.isel({"neuroid": neural_assembly[f"roi_{roi}"].astype(bool).values})
         regression = linear_regression(
             backend="sklearn",
             #torch_kwargs={"device": "cpu"},
         )
 
-        regression.fit(model_assembly, neural_assembly)
+        regression.fit(model_assembly, neural_assembly.sel(
+            {"neuroid": neural_assembly[f"roi_{roi}"].astype(bool).values}
+        ))
         # if using the Pytorch backend I wrote, the betas are currently stored in the `betas` attribute
         # I'll change it to follow the sklearn API later to be more consistent
         betas[roi] = np.transpose(regression._regression.coef_) # betas

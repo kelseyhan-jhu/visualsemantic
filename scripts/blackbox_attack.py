@@ -8,6 +8,7 @@ This script contains the following functions and classes:
 
 """
 
+import pickle
 from argparse import ArgumentParser
 import h5py
 import numpy as np
@@ -67,6 +68,9 @@ if __name__ == "__main__":
         # if using the Pytorch backend I wrote, the betas are currently stored in the `betas` attribute
         # I'll change it to follow the sklearn API later to be more consistent
         betas[roi] = regression._regression.betas
+
+    with open('beta.pkl', 'wb') as file:
+        pickle.dump(betas, file)
 
     ## Load input betas from Murty et al. images
     N_IMAGES = 10

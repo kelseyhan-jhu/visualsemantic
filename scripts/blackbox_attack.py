@@ -40,18 +40,13 @@ if __name__ == "__main__":
     model = alexnet_imagenet()
 
     # wrapping that model in model_tools.brain_transformation.neural.LayerMappedModel to convert it into a brainscore.model_interface.BrainModel
-    model = LayerMappedModel(
-        identifier="alexnet"+layers[0],
-        activations_model=model,
-        region_layer_map={None: layers[0]},  # specifying what CNN layers we wanna use
-        visual_degrees=None,
-    )
+    candidate_model = LayerMappedModel("alexnet"+layers[0], model, {None: layers[0]})
 
     # using the images with textured backgrounds
     stimulus_set = get_stimulus_set("bonner2021.object2vec-texture")
 
     # using an extract_features function defined by me instead of directly doing model(stimulus_set) because Object2Vec has some annoyances (need to average across images within a category since it's a block design)
-    model_assembly = extract_features(model, stimulus_set)
+    model_assembly = extract_features(candidate_model, stimulus_set)
 
     # extract betas
     betas = {roi: [] for roi in rois}

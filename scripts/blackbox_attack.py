@@ -41,7 +41,7 @@ if __name__ == "__main__":
     candidate_model = LayerMappedModel("test-raj", model, {None: layers[0]})
     model_assembly = extract_features(candidate_model, stimulus_set=get_stimulus_set("bonner2021.object2vec-texture"))
 
-    print(model_assembly.values.shape)
+    print(model_assembly.values[0])
 
     # extract betas
     betas = {roi: [] for roi in rois}

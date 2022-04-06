@@ -27,7 +27,7 @@ if __name__ == "__main__":
     parser.add_argument("--layers")
     parser.add_argument("--subject", type=int)
     args = parser.parse_args()
-    subject = 0
+    subject = args.subject
     layers = [args.layers]
 
     # Set dataset

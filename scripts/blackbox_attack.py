@@ -110,7 +110,7 @@ if __name__ == "__main__":
     ## Get activations for encoder-predicted top-category images
 
     condition_imgs = {c: [] for c in conditions}
-    stim_path = "../../visualsemantic/stimuli/stimuli"
+    stim_path = "/home/chan21/projects/visualsemantic/stimuli/stimuli"
     stim_images = listdir(stim_path)
     for condition in conditions:
         condition_imgs[condition] = [stim_images[idx] for idx in condition_best_idx[condition]]
@@ -175,7 +175,7 @@ if __name__ == "__main__":
                      ax=axs[r])
         _ = plt.legend()
 
-    plt.savefig("../results/encbaseline_" + layers[0] + ".png")
+    plt.savefig("/home/chan21/projects/visualsemantic/results/encbaseline_" + layers[0] + ".png")
 
 
     # Plot mean predicted activations to input images
@@ -221,7 +221,7 @@ if __name__ == "__main__":
     plt.xticks(X + 0.125, ['FFA', 'EBA', 'PPA', 'LOC'])
     _ = plt.legend()
 
-    plt.savefig("../results/encbaselineaverage_" + layers[0] + ".png")
+    plt.savefig("/home/chan21/projects/visualsemantic/results/encbaselineaverage_" + layers[0] + ".png")
 
     # # Load input images
     # conditions = ["face", "scene", "bodypart", "object"]

@@ -24,8 +24,8 @@ from bonner.brainscore.benchmarks.bonner2021_object2vec import load_assembly, ex
 
 if __name__ == "__main__":
     parser = ArgumentParser()
-    parser.add_argument("--layers")
-    parser.add_argument("--subject", type=int)
+    parser.add_argument("--layers", default="features.10")
+    parser.add_argument("--subject", type=int, default=0)
     args = parser.parse_args()
     subject = args.subject
     layers = [args.layers]
@@ -48,6 +48,7 @@ if __name__ == "__main__":
     # using an extract_features function defined by me instead of directly doing model(stimulus_set) because Object2Vec has some annoyances (need to average across images within a category since it's a block design)
     model_assembly = extract_features(candidate_model, stimulus_set)
 
+    print(model_assembly.values.shape)
     # extract betas
     betas = {roi: [] for roi in rois}
 

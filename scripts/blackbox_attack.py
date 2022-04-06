@@ -57,7 +57,7 @@ if __name__ == "__main__":
 
     for roi in rois:
         print(roi)
-        x = neural_assembly.isel({"neuroid": neural_assembly[f"roi_{roi}"]})
+        x = neural_assembly.isel({"neuroid": neural_assembly[f"roi_{roi}"].astype(bool).values})
         regression = linear_regression(
             backend="sklearn",
             #torch_kwargs={"device": "cpu"},

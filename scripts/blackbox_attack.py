@@ -27,9 +27,7 @@ import brainscore.metrics.xarray_utils
 if __name__ == "__main__":
     parser = ArgumentParser()
     parser.add_argument("--layers", default="features.10")
-    parser.add_argument("--subject", type=int, default=0)
     args = parser.parse_args()
-    subject = args.subject
     layers = [args.layers]
 
     # Set dataset

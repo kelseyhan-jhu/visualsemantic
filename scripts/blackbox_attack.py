@@ -37,7 +37,7 @@ if __name__ == "__main__":
     rois = ['FFA', 'EBA', 'PPA', 'LOC', 'EVC']
 
     # getting an ActivationsModel (basically a normal Pytorch model wrapped in model_tools.activations.pytorch.PytorchWrapper)
-    model = alexnet_imagenet()
+    model = alexnet_imagenet(identifier='alexnet-imagenet')
 
     # wrapping that model in model_tools.brain_transformation.neural.LayerMappedModel to convert it into a brainscore.model_interface.BrainModel
     candidate_model = LayerMappedModel("alexnet"+layers[0], model, {None: layers[0]})

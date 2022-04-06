@@ -41,8 +41,6 @@ if __name__ == "__main__":
     candidate_model = LayerMappedModel("test-raj", model, {None: layers[0]})
     model_assembly = extract_features(candidate_model, stimulus_set=get_stimulus_set("bonner2021.object2vec-texture"))
 
-    print(model_assembly.values[0])
-
     # extract betas
     betas = {roi: [] for roi in rois}
 
@@ -64,6 +62,8 @@ if __name__ == "__main__":
             backend="pytorch",
             torch_kwargs={"device": "cpu"},
         )
+
+        print(neural_assembly.values)
         regression.fit(model_assembly, neural_assembly)
         # if using the Pytorch backend I wrote, the betas are currently stored in the `betas` attribute
         # I'll change it to follow the sklearn API later to be more consistent

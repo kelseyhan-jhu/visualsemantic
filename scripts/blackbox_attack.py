@@ -82,7 +82,7 @@ if __name__ == "__main__":
     ## Load input betas from Murty et al. images
     N_IMAGES = 10
 
-    f = h5py.File('../../visualsemantic/stimuli/L2_data.mat', 'r')
+    f = h5py.File('/home/chan21/projects/visualsemantic/stimuli/L2_data.mat', 'r')
     L2data = f.get('L2_data')
     print(L2data.keys())
     L2data_rois = (L2data.get('rois'))

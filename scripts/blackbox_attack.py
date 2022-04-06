@@ -25,7 +25,9 @@ from bonner.brainscore.benchmarks.bonner2021_object2vec import load_assembly, ex
 if __name__ == "__main__":
     parser = ArgumentParser()
     parser.add_argument("--layers")
+    parser.add_argument("--subject", type=int)
     args = parser.parse_args()
+    subject = 0
     layers = [args.layers]
 
     # Set dataset
@@ -56,28 +58,26 @@ if __name__ == "__main__":
 
     for roi in rois:
         print(roi)
-        for subject in range(4):
-            print(subject)
-            neural_assembly = load_assembly(
-                subject,
-                average_reps=False,
-                z_score=True,
-                check_integrity=False,
-                kwargs_filter={
-                    "rois": (
-                        roi,
+        neural_assembly = load_assembly(
+            subject,
+            average_reps=False,
+            z_score=True,
+            check_integrity=False,
+            kwargs_filter={
+                "rois": (
+                    roi,
 
-                    )
-                }
-            )
-            regression = linear_regression(
-                backend="pytorch",
-                torch_kwargs={"device": "cpu"},
-            )
-            regression.fit(model_assembly, neural_assembly)
-            # if using the Pytorch backend I wrote, the betas are currently stored in the `betas` attribute
-            # I'll change it to follow the sklearn API later to be more consistent
-            betas[roi][subject] = regression._regression.betas
+                )
+            }
+        )
+        regression = linear_regression(
+            backend="pytorch",
+            torch_kwargs={"device": "cpu"},
+        )
+        regression.fit(model_assembly, neural_assembly)
+        # if using the Pytorch backend I wrote, the betas are currently stored in the `betas` attribute
+        # I'll change it to follow the sklearn API later to be more consistent
+        betas[roi] = regression._regression.betas
 
     ## Load input betas from Murty et al. images
     N_IMAGES = 10
@@ -145,8 +145,7 @@ if __name__ == "__main__":
 
     for roi in rois:
         for condition in conditions:
-            data = cond_activations[condition]
-            content_predicted = np.matmul(data, betas[roi][0])
+            content_predicted = np.matmul(cond_activations[condition], betas[roi])
             print(roi, condition, content_predicted.mean())
             cond_predicted[roi][condition] = content_predicted
 

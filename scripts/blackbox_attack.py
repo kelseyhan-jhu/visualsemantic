@@ -45,7 +45,6 @@ if __name__ == "__main__":
     betas = {roi: [] for roi in rois}
 
     for roi in rois:
-        print(roi)
         neural_assembly = load_assembly(
             subject,
             average_reps=False,
@@ -63,12 +62,12 @@ if __name__ == "__main__":
             torch_kwargs={"device": "cpu"},
         )
 
-        print(neural_assembly.values)
         regression.fit(model_assembly, neural_assembly)
         # if using the Pytorch backend I wrote, the betas are currently stored in the `betas` attribute
         # I'll change it to follow the sklearn API later to be more consistent
         betas[roi] = regression._regression.betas
 
+    print(betas)
     with open('beta.pkl', 'wb') as file:
         pickle.dump(betas, file)
 
